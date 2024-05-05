@@ -143,9 +143,9 @@
         const propertyId = propertyIdInput.value;
   
         // Open a new browser page with the property details
-        const url = `${BASE_UR}/property-details.html?propertyId=${propertyId}`;
-        console.log("Opening URL:", url);
-        window.open(url);
+        window.location.href = `/frontend/property-details.html?propertyId=${propertyId}`;
+        // console.log("Opening URL:", url);
+        // window.open(url);
       });
     });
   </script>
