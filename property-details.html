@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Details</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; /* Stack children vertically */
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .logo {
+      margin-top: 50px; /* Add some space above the logo */
+      text-align: center; /* Center the logo */
+    }
+    .logo img {
+      width: 200px; /* Adjusted logo size */
+    }
+    .property-details-container {
+      max-width: 800px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adding drop shadow */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; /* Stack children vertically */
+    }
+    .heading {
+      background-color: #007bff; /* Blue background color */
+      color: #fff; /* White text color */
+      font-family: "Arial Black", sans-serif; /* Different font */
+      font-size: 24px; /* Larger font size */
+      padding: 10px 20px; /* Padding around the heading */
+      border-radius: 5px; /* Rounded corners */
+      margin-bottom: 20px; /* Add space below the heading */
+    }
+    .property-details {
+      width: 100%; /* Take full width */
+      padding: 20px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      transition: all 0.3s ease; /* Adding transition for hover effect */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adding box shadow */
+    }
+    .property-details:hover {
+      transform: translateY(-5px); /* Move the element up on hover */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Adjusted box shadow on hover */
+    }
+    .property-details p:hover {
+      background-color: #f0f0f0; /* Change background color on hover */
+    }
+    h2 {
+      text-align: center;
+    }
+    p {
+      margin-bottom: 10px;
+    }
+
+    /* Custom Styles for Property Details and Additional Details */
+    .property-details p {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+      transition: background-color 0.3s ease; /* Adding transition for background color */
+    }
+    .property-details p:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .property-details p strong {
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="ScaleCapacityLogo.png" alt="Logo">
+  </div>
+  <div class="property-details-container">
+    <div class="heading">
+      Property Details
+    </div>
+    <div class="property-details" id="property-details-left">
+      <!-- Property details will be populated here dynamically -->
+    </div>
+    <br>
+    <div class="heading">
+      Additional Details
+    </div>
+    <div class="property-details" id="property-details-right">
+      <!-- Additional property details will be populated here dynamically -->
+    </div>
+  </div>
+
+  <script>
+    // Parse the URL to get the property ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const propertyId = urlParams.get('propertyId');
+
+    // Fetch property details from the backend API using the property ID
+    fetch(`http://localhost:4000/properties/${propertyId}`)
+      .then(response => response.json())
+      .then(property => {
+        // Populate property details in the property-details div
+        const propertyDetailsLeft = document.getElementById('property-details-left');
+        const propertyDetailsRight = document.getElementById('property-details-right');
+        propertyDetailsLeft.innerHTML = `
+          <h2>Key Details</h2>
+          <p><strong>ID:</strong> ${property.id}</p>
+          <p><strong>Name:</strong> ${property.name}</p>
+          <p><strong>Type:</strong> ${property.type}</p>
+        `;
+        propertyDetailsRight.innerHTML = `
+          <h2>Extra Details</h2>
+          <p><strong>Amount:</strong> ${property.amount}</p>
+          <p><strong>Date:</strong> ${property.date}</p>
+          <p><strong>Owner:</strong> ${property.owner}</p>
+          <p><strong>Description:</strong> ${property.description}</p>
+        `;
+      })
+      .catch(error => console.error('Error fetching property details:', error));
+  </script>
+</body>
+</html>

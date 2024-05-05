@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cool Login form | By Code Info</title>
+    <link rel="stylesheet" href="loginstyle.css">
+    <!-- Font Awesome Cdn Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+<div class="wrapper">
+    <h1>Hello Again!</h1>
+    <p>Welcome back you've <br> been missed!</p>
+    <form id="loginForm">
+        <input type="text" id="username" placeholder="Enter username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <p class="recover">
+            <a href="#">Recover Password</a>
+        </p>
+        <button type="submit">Sign in</button>
+    </form>
+    <p class="or">
+        ----- or continue with -----
+    </p>
+    <div class="icons">
+        <i class="fab fa-google"></i>
+        <i class="fab fa-github"></i>
+        <i class="fab fa-facebook"></i>
+    </div>
+    <div class="not-member">
+        Not a member? <a href="#">Register Now</a>
+    </div>
+</div>
+
+<script>
+    const BASE_URL="http://localhost:4000"
+
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch(BASE_URL+'/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                window.location.href = '/frontend/index.html'; // Redirect to dashboard on successful login
+            } else {
+                const data = await response.json();
+                alert(data.message); // Display error message if login fails
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+            alert('An error occurred while logging in. Please try again later.');
+        }
+    });
+</script>
+</body>
+</html>
