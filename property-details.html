@@ -109,8 +109,10 @@
     const propertyId = urlParams.get('propertyId');
 
     // Fetch property details from the backend API using the property ID
-    fetch(`http://localhost:4000/properties/${propertyId}`)
-      .then(response => response.json())
+    // fetch(`http://localhost:4000/properties/${propertyId}`)
+    fetch(`https://kobby-admindashboard-backend.onrender.com/properties/${propertyId}`)
+
+    .then(response => response.json())
       .then(property => {
         // Populate property details in the property-details div
         const propertyDetailsLeft = document.getElementById('property-details-left');

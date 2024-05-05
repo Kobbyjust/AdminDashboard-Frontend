@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "https://kobby-admindashboard-backend.onrender.com";
 
 document.addEventListener("DOMContentLoaded", function () {
   const showModalButton = document.getElementById("show-property-modal");

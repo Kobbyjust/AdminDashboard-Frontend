@@ -1,6 +1,7 @@
 // Make a GET request to fetch property details
 //// Make a GET request to fetch all properties
-const BASE_URL="http://localhost:4000"
+// const BASE_URL="http://localhost:4000"
+const BASE_URL="https://kobby-admindashboard-backend.onrender.com"
 fetch( BASE_URL + '/properties')
 .then(response => response.json())
 .then(properties => {
